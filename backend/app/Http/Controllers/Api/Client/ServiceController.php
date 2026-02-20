@@ -23,11 +23,14 @@ class ServiceController extends Controller
         $request->validate([
             'service_id' => 'required|exists:services,id',
         ]);
-
+    
         $dentists = Dentist::where('is_active', true)
+                           ->whereHas('services', function ($query) use ($request) {
+                               $query->where('services.id', $request->service_id);
+                           })
                            ->with('schedules')
                            ->get();
-
+    
         return response()->json($dentists);
     }
 
@@ -87,4 +90,6 @@ class ServiceController extends Controller
             'slots'    => $slots,
         ]);
     }
+
+    
 }

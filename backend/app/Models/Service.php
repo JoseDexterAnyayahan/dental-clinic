@@ -23,4 +23,9 @@ class Service extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+        public function dentists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Dentist::class);
+    }
 }

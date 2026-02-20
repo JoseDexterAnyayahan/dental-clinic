@@ -1,4 +1,4 @@
-import api from '@/lib/api'
+import api, { startSessionKeepAlive } from '@/lib/api'
 
 export interface User {
   id: number
@@ -31,21 +31,23 @@ export interface RegisterPayload {
 
 export async function clientLogin(data: LoginPayload): Promise<AuthResponse> {
   const res = await api.post<AuthResponse>('/auth/client/login', data)
-  persistToken(res.data.token)
+  persistToken('client_token', res.data.token)
+  startSessionKeepAlive()
   return res.data
 }
 
 export async function clientRegister(data: RegisterPayload): Promise<AuthResponse> {
   const res = await api.post<AuthResponse>('/auth/client/register', data)
-  persistToken(res.data.token)
+  persistToken('client_token', res.data.token)
+  startSessionKeepAlive()
   return res.data
 }
 
 export async function clientLogout(): Promise<void> {
   try {
-    await api.post('/client/logout')   // auth:sanctum + client middleware
+    await api.post('/client/logout')
   } finally {
-    clearToken()
+    clearToken('client_token')
   }
 }
 
@@ -58,15 +60,16 @@ export async function clientMe(): Promise<User> {
 
 export async function adminLogin(data: LoginPayload): Promise<AuthResponse> {
   const res = await api.post<AuthResponse>('/auth/admin/login', data)
-  persistToken(res.data.token)
+  persistToken('admin_token', res.data.token)
+  startSessionKeepAlive()
   return res.data
 }
 
 export async function adminLogout(): Promise<void> {
   try {
-    await api.post('/admin/logout')    // auth:sanctum + admin middleware
+    await api.post('/admin/logout')
   } finally {
-    clearToken()
+    clearToken('admin_token')
   }
 }
 
@@ -77,19 +80,19 @@ export async function adminMe(): Promise<User> {
 
 // ── Token helpers ─────────────────────────────────────────────
 
-function persistToken(token: string) {
+function persistToken(key: string, token: string) {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('auth_token', token)
+    localStorage.setItem(key, token)
   }
 }
 
-export function clearToken() {
+export function clearToken(key: string) {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem('auth_token')
+    localStorage.removeItem(key)
   }
 }
 
-export function getToken(): string | null {
+export function getToken(key: string): string | null {
   if (typeof window === 'undefined') return null
-  return localStorage.getItem('auth_token')
+  return localStorage.getItem(key)
 }

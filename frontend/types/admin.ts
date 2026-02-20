@@ -5,6 +5,7 @@ export interface DashboardStats {
   completed_today: number
   total_appointments: number
   total_dentists: number
+  confirmed_appointments: number
 }
 
 export interface Dentist {

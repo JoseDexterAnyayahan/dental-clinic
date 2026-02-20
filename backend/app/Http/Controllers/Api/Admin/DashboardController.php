@@ -13,7 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         $today = now()->toDateString();
-
+    
         return response()->json([
             'total_appointments_today' => Appointment::whereDate('appointment_date', $today)->count(),
             'pending_appointments'     => Appointment::where('status', 'pending')->count(),

@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'expiration' => null,
+ 'expiration' => 60, // 60 minutes, matches the 1hr inactivity limit
 
     /*
     |--------------------------------------------------------------------------

@@ -32,6 +32,30 @@
   }
 }
 
+:root {
+  --bg:           255 255 255;
+  --bg-subtle:    213 30% 97%;
+  --border:       213 30% 91%;
+  --text-primary: 220 60% 15%;
+  --text-muted:   220 15% 55%;
+  --card:         255 255 255;
+}
+
+.dark {
+  --bg:           220 25% 10%;
+  --bg-subtle:    220 25% 13%;
+  --border:       220 20% 20%;
+  --text-primary: 213 30% 92%;
+  --text-muted:   220 15% 55%;
+  --card:         220 25% 13%;
+}
+
+body {
+  background-color: hsl(var(--bg));
+  color: hsl(var(--text-primary));
+  transition: background-color 0.2s, color 0.2s;
+}
+
 @layer base {
   :root {
     --background: 0 0% 99%;

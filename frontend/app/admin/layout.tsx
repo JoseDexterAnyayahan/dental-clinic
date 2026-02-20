@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       return
     }
 
-    const token = getToken()
+    const token = getToken('admin_token')
     if (!token) {
       router.replace('/admin/login')
       return

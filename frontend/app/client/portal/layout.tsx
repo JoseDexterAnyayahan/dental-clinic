@@ -9,8 +9,8 @@ export default function ClientPortalLayout({ children }: { children: React.React
   const router = useRouter()
   const [checking, setChecking] = useState(true)
 
-  useEffect(() => {
-    const token = getToken()
+useEffect(() => {
+    const token = getToken('client_token')
     if (!token) {
       router.replace('/client/login')
       return

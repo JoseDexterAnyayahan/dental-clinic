@@ -33,4 +33,9 @@ class Dentist extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+{
+    return $this->belongsToMany(Service::class);
+}
 }

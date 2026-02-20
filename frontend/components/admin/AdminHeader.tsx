@@ -12,7 +12,7 @@ export default function AdminHeader({ title, subtitle }: { title: string; subtit
   const initials = user?.name?.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase() ?? '?'
 
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between mb-8 w-full">
       <div>
         <h1 className="text-2xl font-bold" style={{ color: 'hsl(220,60%,15%)' }}>{title}</h1>
         {subtitle && <p className="text-sm mt-0.5" style={{ color: 'hsl(220,15%,55%)' }}>{subtitle}</p>}
